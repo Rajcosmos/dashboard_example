@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X=UA-Compatibe" content="ie=edge">
+
+ <title> Dashboard </title>
+ <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <!-- Custom styles for this template -->
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-tip/0.7.1/d3-tip.min.js"></script>
+</head>
+
+<body>
+       
+                <div class="jumbotron jumbotron-fluid">
+                    <div class="container">
+                 <h1 class="display-4"> Dashboard </h1>
+                   </div> 
+               </div> 
+        
+<form id="piechart">
+    <label for="sample-value">SELECT Sample:</label>
+<select id="selDataset" onchange="getData(this.value)">
+</select>
+</form>
+
+<div id="pie"></div>
+
+<div id="bubble"></div>
+
+<script src={{url_for('static', filename='js/app.js')}}></script>
+
+</body>
+</html>
