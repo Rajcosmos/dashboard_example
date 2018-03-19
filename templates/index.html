@@ -3,35 +3,77 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="X=UA-Compatibe" content="ie=edge">
 
  <title> Dashboard </title>
+ <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
     <!-- Custom styles for this template -->
     <script src="https://d3js.org/d3.v4.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-tip/0.7.1/d3-tip.min.js"></script>
+    s
+    </header>
+    <!--Main Navigation-->
+            
+    
 </head>
 
-<body>
-       
-                <div class="jumbotron jumbotron-fluid">
+<body class="grey lighten-3">
+
+ 
+        <nav class="navbar navbar-dark bg-primary">
+                <!-- Navbar content -->
+              
+                <!--<div class="jumbotron jumbotron-fluid">-->
                     <div class="container">
-                 <h1 class="display-4"> Dashboard </h1>
+                 <h2 class="display-4"> Belly Button Biodiversity Dashboard </h2>
                    </div> 
-               </div> 
-        
+               </nav>
+
+<div class ="container-fluid">
+
 <form id="piechart">
     <label for="sample-value">SELECT Sample:</label>
 <select id="selDataset" onchange="getData(this.value)">
 </select>
 </form>
 
-<div id="pie"></div>
+<div class="row">
+    <div class="col-md-6 ">
+         <div class="card">  
+                <div class="card-body">
+                        <div id="pie"></div>
+                </div>
+         </div>
+        </div>
+        <div class="col-md-6 ">
+           <div class="card">
+                <div class="card-body">
+                        <div id="gauge"></div>
+                </div>
+          </div>
+       </div>
+</div>
 
-<div id="bubble"></div>
+    <div class="col-md-9">
+            <div class="card">  
+                    <div class="card-body">
+                            <div id="bubble"></div>
+                    </div>
+            </div>
+    </div>
 
+
+
+<!-- calling app.js -->
 <script src={{url_for('static', filename='js/app.js')}}></script>
 
+ <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+ <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"> </script>
+ <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script> -->
+ <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
 </body>
 </html>
