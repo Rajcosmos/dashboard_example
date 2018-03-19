@@ -10,6 +10,8 @@ d3.json(queryURL, function(error, response) {
     if (error) return console.warn(error);
     //console.log(response);
     //console.log("type", typeof(response));
+    init_gauge(response[0]);
+    metadata(response[0]);
     for (i=0 ; i< response.length; i++){
       var names_options = response[i];
      //using d3 to feed the drop in data so that we can select the options
@@ -23,11 +25,47 @@ d3.json(queryURL, function(error, response) {
        var data=d3.select('option').node().value;
        getData(data)
       }
+   
       
     }
 
   })
 }
+
+
+function metadata(sample){
+
+    var url="/metadata/"+sample;
+    console.log(url);
+    d3.json(url, function(error, resp) {
+      console.log('error:', error);
+      if (error) return console.warn(error);
+      console.log(resp[0].AGE);
+      console.log(resp[0].BBTYPE);
+      console.log(resp[0].ETHNICITY);
+      console.log(resp[0].GENDER);
+      console.log(resp[0].LOCATION);
+      console.log(resp[0].SAMPLEID);
+    
+       var data =[
+         {name:"AGE", number:resp[0].AGE},
+         {name:"BBTPYE", number:resp[0].BBTYPE},
+         {name:"ETHNICITY",number:resp[0].ETHNICITY},
+         {name:"GENDER",number:resp[0].GENDER},
+         {name:"LOCATION",number:resp[0].LOCATION},
+         {name:"SAMPLEID",number:resp[0].SAMPLEID}
+       ]
+
+        d3.selectAll("div")
+        .data(data, function(d) { return d ? d.name : this.id; })
+        .style("font-size", "15px")
+        .text(function(d) { 
+          return [d.name,d.number] });
+        
+
+    });
+  }
+
 
 // Pie plot ***********
 
@@ -55,15 +93,26 @@ function updatePlotly_pie(newdata,labels) {
   Plotly.restyle(PIE, 'labels', [labels]);
 }
 
-//** Gauge Chart *****************
+//** *************************Gauge Chart *****************
+//************ */
 
-function init_gauge()
+function init_gauge(sample)
 {
-// Enter a speed between 0 and 180
-var level = 175;
 
-// Trig to calc meter point
-var degrees = 180 - level,
+var url="/wfreq/"+sample;
+console.log(url);
+
+d3.json(url, function(error, resp) {
+  console.log('error:', error);
+  if (error) return console.warn(error);
+  console.log(resp[0].WFREQ);
+
+// Enter a value corresponding to sample
+var level = resp[0].WFREQ;
+
+// Trig to calc meter point and multiplying by 20 to move the dial (level*20=angle degree)
+
+var degrees = 180 - level*20,
      radius = .5;
 var radians = degrees * Math.PI / 180;
 var x = radius * Math.cos(radians);
@@ -81,20 +130,20 @@ var data = [{ type: 'scatter',
    x: [0], y:[0],
     marker: {size: 28, color:'850000'},
     showlegend: false,
-    name: 'speed',
+    name: 'scrub',
     text: level,
     hoverinfo: 'text+name'},
-  { values: [50/6, 50/6, 50/6, 50/6, 50/6, 50/6, 50],
+  { values: [50/9,50/9,50/9, 50/9, 50/9, 50/9, 50/9, 50/9, 50/9, 50],
   rotation: 90,
-  text: ['TOO FAST!', 'Pretty Fast', 'Fast', 'Average',
-            'Slow', 'Super Slow', ''],
+  text: ['8-9','7-8','6-7','5-6', '4-5', '3-4', '2-3',
+            '1-2', '0-1', ''],
   textinfo: 'text',
   textposition:'inside',      
-  marker: {colors:['rgba(14, 127, 0, .5)', 'rgba(110, 154, 22, .5)',
+  marker: {colors:['rgba(0, 51, 0, .5)','rgba(0, 102, 0, .5)','rgba(0, 153, 76, .5)','rgba(14, 127, 0, .5)', 'rgba(110, 154, 22, .5)',
                          'rgba(170, 202, 42, .5)', 'rgba(202, 209, 95, .5)',
                          'rgba(210, 206, 145, .5)', 'rgba(232, 226, 202, .5)',
                          'rgba(255, 255, 255, 0)']},
-  labels: ['151-180', '121-150', '91-120', '61-90', '31-60', '0-30', ''],
+  labels: ['8-9','7-8','6-7','5-6', '4-5', '3-4', '2-3', '1-2', '0-1', ''],
   hoverinfo: 'label',
   hole: .5,
   type: 'pie',
@@ -110,7 +159,7 @@ var layout = {
         color: '850000'
       }
     }],
-  title: '<b>Gauge</b> <br> Speed 0-100',
+  title: '<b> Belly Button Washing Frequency</b> <br> Scrubs per Week',
   height: 400,
   width: 400,
   xaxis: {zeroline:false, showticklabels:false,
@@ -121,12 +170,8 @@ var layout = {
 
 Plotly.newPlot('gauge', data, layout);
 
-
-
+}) ;
 }
-
-
-
 
 // Bubble plot *******
 
@@ -155,6 +200,7 @@ function init_bubble() {
      };
      Plotly.newPlot('bubble',data,layout);
     }
+
     
      function updatePlotly_bubble(y,x) {
           var BUBBLE = document.getElementById('bubble');
@@ -184,7 +230,6 @@ function getData(data) {
   var url="/samples/"+data;
   //Otuid description
   var url_desc="/otu";
- //console.log(url)
 
 // assigning samplevalue and otuid as arrays
   var samplevalues = [];
@@ -224,10 +269,14 @@ updatePlotly_pie(dataPlots,labelPlots);
 updatePlotly_bubble(dataPlots,labelPlots);
 
 })
+
+metadata(data);
+init_gauge(data);
+
 }
 
 
 option_selection();
 init_pie();
-init_gauge();
+//init_gauge();
 init_bubble();

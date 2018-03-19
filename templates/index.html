@@ -28,19 +28,41 @@
               
                 <!--<div class="jumbotron jumbotron-fluid">-->
                     <div class="container">
-                 <h2 class="display-4"> Belly Button Biodiversity Dashboard </h2>
+                 <h1 class="display-4"> Belly Button Biodiversity Dashboard </h1>
                    </div> 
                </nav>
 
 <div class ="container-fluid">
-
+<div class="card">
 <form id="piechart">
     <label for="sample-value">SELECT Sample:</label>
 <select id="selDataset" onchange="getData(this.value)">
 </select>
 </form>
+</div>
 
 <div class="row">
+  <div class="col-md-3">
+   <div class=card>
+ 
+        <p class="font-weight-bold">Sample MetaData</p>
+        <!--
+        <p class="text-sm-left">AGE:</p>
+        <p class="text-sm-left">BBTYPE:</p>
+        <p class="text-sm-left">ETHNICITY:</p>
+        <p class="text-sm-left">GENDER:</p>
+        <p class="text-sm-left">LOCATION:</p>
+        <p class="text-sm-left">SAMPLEID:</p>
+       -->
+       <div id="AGE">  </div>
+       <div id="BBTYPE"></div>
+       <div id="ETHNICITY"></div>
+       <div id="GENDER"></div>
+       <div id="LOCATION"></div>
+       <div id="SAMPLEID"></div>
+   </div>
+  </div>
+
     <div class="col-md-6 ">
          <div class="card">  
                 <div class="card-body">
@@ -48,7 +70,7 @@
                 </div>
          </div>
         </div>
-        <div class="col-md-6 ">
+        <div class="col-md-3 ">
            <div class="card">
                 <div class="card-body">
                         <div id="gauge"></div>
