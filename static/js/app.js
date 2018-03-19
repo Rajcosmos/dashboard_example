@@ -40,12 +40,7 @@ function metadata(sample){
     d3.json(url, function(error, resp) {
       console.log('error:', error);
       if (error) return console.warn(error);
-      console.log(resp[0].AGE);
-      console.log(resp[0].BBTYPE);
-      console.log(resp[0].ETHNICITY);
-      console.log(resp[0].GENDER);
-      console.log(resp[0].LOCATION);
-      console.log(resp[0].SAMPLEID);
+  
     
        var data =[
          {name:"AGE", number:resp[0].AGE},
