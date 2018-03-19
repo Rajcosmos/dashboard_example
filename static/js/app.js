@@ -160,8 +160,8 @@ var layout = {
       }
     }],
   title: '<b> Belly Button Washing Frequency</b> <br> Scrubs per Week',
-  height: 400,
-  width: 400,
+  height: 600,
+  width: 600,
   xaxis: {zeroline:false, showticklabels:false,
              showgrid: false, range: [-1, 1]},
   yaxis: {zeroline:false, showticklabels:false,
